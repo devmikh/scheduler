@@ -7,6 +7,15 @@ export function getAppointmentsForDay(state, day) {
   return appointments;
 }
 
+export function getInterviewersForDay(state, day) {
+  const interviewers = [];
+  const currentDay = state.days.find(x => x.name === day);
+  currentDay && currentDay.interviewers.forEach((x) => {
+      x in state.interviewers && interviewers.push(state.interviewers[x]);
+  });
+  return interviewers;
+}
+
 export function getInterview(state, interview) {
   if (interview === null) {
     return interview;
