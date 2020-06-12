@@ -10,6 +10,26 @@ import "components/Application.scss";
 
 export default function Application(props) {
 
+  function bookInterview(id, interview) {
+    const appointment = {
+      ...state.appointments[id],
+      interview: { ...interview }
+    }
+
+    const appointments = {
+      ...state.appointments,
+      [id]: appointment
+    }
+
+    return axios.put(`/api/appointments/${id}`, { interview })
+      .then(res => {
+        setState({
+          ...state,
+          appointments
+        });
+      });
+  }
+
   // create state object
   const [state, setState] = useState({
     day: "Monday",
@@ -54,6 +74,7 @@ export default function Application(props) {
         time={appointment.time}
         interview={interview}
         interviewers={interviewers}
+        bookInterview={bookInterview}
       />
     );
   });
