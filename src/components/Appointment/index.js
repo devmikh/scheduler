@@ -17,7 +17,6 @@ const Appointment = (props) => {
     props.interview ? SHOW : EMPTY
   );
 
-
   return (
     <article
       className="appointment"
