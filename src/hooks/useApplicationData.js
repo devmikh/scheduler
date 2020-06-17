@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import axios from "axios";
-// import { calculateRemainingSpots } from '../helpers/selectors';
+import { updateRemainingSpotsForDay } from '../helpers/selectors';
 
 const useApplicationData = () => {
   // create state object
@@ -22,27 +22,36 @@ const useApplicationData = () => {
       [id]: appointment
     }
 
-    // Get day object for the current day
-    const day = state.days.find(x => x.name === state.day);
+    // // Get day object for the current day
+    // const day = state.days.find(x => x.name === state.day);
 
-    // Find index of the current day
-    const index = state.days.findIndex(x => x.name === state.day);
+    // // Find index of the current day
+    // const index = state.days.findIndex(x => x.name === state.day);
 
-    // Create a copy of state's days array
-    const days = [...state.days];
+    // // Create a copy of state's days array
+    // const days = [...state.days];
 
-    // Replace the day object with a copied day object
-    days[index] = day;
+    // // Replace the day object with a copied day object
+    // days[index] = day;
 
     return axios.put(`/api/appointments/${id}`, { interview })
       .then(() => {
-        // Decrease the number of spots by 1
-        day.spots -= 1;
+        
         setState({
           ...state,
-          days,
           appointments
         });
+        
+        setState((prev) => {
+          const days = updateRemainingSpotsForDay(prev, prev.day);
+          return {
+            ...prev,
+            appointments,
+            days
+          }
+        });
+        
+        
       });
   }
 
@@ -57,31 +66,33 @@ const useApplicationData = () => {
       [id]: appointment
     }
 
-    // Get day object for the current day
-    const day = state.days.find(x => x.name === state.day);
-
-    // Find index of the current day
-    const index = state.days.findIndex(x => x.name === state.day);
-
-    // Create a copy of state's days array
-    const days = [...state.days];
-
-    // Replace the day object with a copied day object
-    days[index] = day;
-
     return axios.delete(`/api/appointments/${id}`)
       .then(() => {
-        // Increase the number of spots by 1
-        day.spots += 1;
         setState({
           ...state,
-          days,
           appointments
+        });
+        
+        setState((prev) => {
+          const days = updateRemainingSpotsForDay(prev, prev.day);
+          return {
+            ...prev,
+            appointments,
+            days
+          }
         });
       });
   }
 
   const setDay = day => setState({ ...state, day });
+
+  // useEffect(() => {
+    
+  //   setState({
+  //     ...state,
+  //     days
+  //   })
+  // }, [state])
 
   // make a get request to the API server, retrieve data and populate the state with it (happens one time)
   useEffect(() => {
