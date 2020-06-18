@@ -1,6 +1,8 @@
 # Interview Scheduler
 
-## Description
+## Project Description
+
+Interview Scheduler is a single-page application which allows a student to book and manage an interview with a mentor.
 
 ## Setup
 
@@ -23,3 +25,16 @@ npm test
 ```sh
 npm run storybook
 ```
+
+## Running Cypress
+
+```sh
+npm run cypress
+```
+
+## Screenshots
+
+!["main"](https://github.com/devmikh/scheduler/blob/master/docs/main.png?raw=true)
+!["create-appointment"](https://github.com/devmikh/scheduler/blob/master/docs/create-appointment.png?raw=true)
+!["create-appointment-filled"](https://github.com/devmikh/scheduler/blob/master/docs/create-appoinment-filled.png?raw=true)
+!["main-updated"](https://github.com/devmikh/scheduler/blob/master/docs/main-updated.png?raw=true)
