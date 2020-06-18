@@ -1,14 +1,12 @@
-import { useState } from 'react';
+import { useState } from "react";
 
 const useVisualMode = (initial) => {
-
   const [mode, setMode] = useState(initial);
   const [history, setHistory] = useState([initial]);
 
   const transition = (mode, replace = false) => {
-
     const historyArr = [...history];
-    
+
     if (replace) {
       historyArr[historyArr.length - 1] = mode;
     } else {
@@ -17,10 +15,9 @@ const useVisualMode = (initial) => {
 
     setMode(historyArr[historyArr.length - 1]);
     setHistory(historyArr);
-  }
+  };
 
-  const back = () =>  {
-
+  const back = () => {
     const historyArr = [...history];
 
     if (historyArr.length > 1) {
@@ -30,7 +27,7 @@ const useVisualMode = (initial) => {
     setMode(historyArr[historyArr.length - 1]);
 
     setHistory(historyArr);
-  }
+  };
 
   return { mode, transition, back };
 };

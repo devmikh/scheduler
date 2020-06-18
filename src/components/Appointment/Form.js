@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import InterviewerList from '../InterviewerList';
-import Button from '../Button';
+import React, { useState } from "react";
+import InterviewerList from "../InterviewerList";
+import Button from "../Button";
 
 const Form = (props) => {
   const [name, setName] = useState(props.name || "");
@@ -11,18 +11,18 @@ const Form = (props) => {
     setName("");
     setInterviewer(null);
   };
-  
+
   const cancel = () => {
     reset();
     props.onCancel();
   };
 
   function validate() {
-    if (name === "" ) {
+    if (name === "") {
       setError("Student name cannot be blank");
       return;
     }
-    
+
     setError("");
     props.onSave(name, interviewer);
   }
@@ -30,7 +30,7 @@ const Form = (props) => {
   return (
     <main className="appointment__card appointment__card--create">
       <section className="appointment__card-left">
-        <form autoComplete="off" onSubmit={event => event.preventDefault()}>
+        <form autoComplete="off" onSubmit={(event) => event.preventDefault()}>
           <input
             className="appointment__create-input text--semi-bold"
             name="name"
@@ -50,8 +50,12 @@ const Form = (props) => {
       </section>
       <section className="appointment__card-right">
         <section className="appointment__actions">
-          <Button danger onClick={cancel}>Cancel</Button>
-          <Button confirm onClick={validate}>Save</Button>
+          <Button danger onClick={cancel}>
+            Cancel
+          </Button>
+          <Button confirm onClick={validate}>
+            Save
+          </Button>
         </section>
       </section>
     </main>
